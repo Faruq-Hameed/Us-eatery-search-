@@ -10,47 +10,36 @@ import {
 // import { data } from "./data";
 
 const filterByPrice = (businesses, priceLevel) => {
-    return businesses?.filter(business => business.price === priceLevel) || [];
-  };
+  return businesses?.filter((business) => business.price === priceLevel) || [];
+};
 
-  const FlatListReturnComponent = () =>{
-    <View style={styles.mainContainer}>
-      <Text style={styles.headerContainer}>{category}</Text>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.listContainer}
-        data={filteredData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              style={styles.listChild}
-              onPress={() => navigation.navigate("Item", {itemId: item.id})}
-              activeOpacity={0.7}
-            >
-              <Image
-                style={styles.image}
-                source={{ uri: item.image_url }}
-                defaultSource={require("../../assets/food.png")}
-                // source={{
-                //     uri: "https://via.placeholder.com/100",
-                //   }}
-              />
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemRating}>
-                {item.rating} stars {item.review_count} Reviews
-              </Text>
-            </TouchableOpacity>
-          );
-        }}
+/**Component to return in flatList renderItem */
+const FlatListRenderComponent = ({ item, styles, navigation }) => {
+  return (
+    <TouchableOpacity
+      style={styles.listChild}
+      onPress={() => navigation.navigate("Item", { itemId: item.id })}
+      activeOpacity={0.7}
+    >
+      <Image
+        style={styles.image}
+        source={{ uri: item.image_url }}
+        defaultSource={require("../../assets/food.png")}
+        // source={{
+        //     uri: "https://via.placeholder.com/100",
+        //   }}
       />
-    </View>
-  }
+      <Text style={styles.itemName}>{item.name}</Text>
+      <Text style={styles.itemRating}>
+        {item.rating} stars {item.review_count} Reviews
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
-const FoodCategory = ({ category, navigation, data,price }) => {
+const FoodCategory = ({ category, navigation, data, price }) => {
   if (!data || !data.businesses) return null;
-  const filteredData = filterByPrice(data.businesses,price)
+  const filteredData = filterByPrice(data.businesses, price);
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.headerContainer}>{category}</Text>
@@ -62,24 +51,11 @@ const FoodCategory = ({ category, navigation, data,price }) => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity
-              style={styles.listChild}
-              onPress={() => navigation.navigate("Item", {itemId: item.id})}
-              activeOpacity={0.7}
-            >
-              <Image
-                style={styles.image}
-                source={{ uri: item.image_url }}
-                defaultSource={require("../../assets/food.png")}
-                // source={{
-                //     uri: "https://via.placeholder.com/100",
-                //   }}
-              />
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemRating}>
-                {item.rating} stars {item.review_count} Reviews
-              </Text>
-            </TouchableOpacity>
+            <FlatListRenderComponent
+              item={item}
+              styles={styles}
+              navigation={navigation}
+            />
           );
         }}
       />
