@@ -1,9 +1,15 @@
 import react, { useState, useReducer, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import SearchBar from "../components/SearchBar";
 import FoodCategory from "../components/FoodCategory";
 import { useNavigation } from "@react-navigation/native";
-import { getAllData } from "../components/axios";
+import { getAllData } from "../apis/yelp.apis";
 
 const initialState = {
   search_text: "restaurants", //
@@ -88,7 +94,6 @@ const SearchScreen = () => {
         category="Big Spender!"
         navigation={navigation}
         data={data}
-
         price="$$$"
       />
       <FoodCategory

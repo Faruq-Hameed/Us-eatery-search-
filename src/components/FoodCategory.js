@@ -13,6 +13,41 @@ const filterByPrice = (businesses, priceLevel) => {
     return businesses?.filter(business => business.price === priceLevel) || [];
   };
 
+  const FlatListReturnComponent = () =>{
+    <View style={styles.mainContainer}>
+      <Text style={styles.headerContainer}>{category}</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.listContainer}
+        data={filteredData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              style={styles.listChild}
+              onPress={() => navigation.navigate("Item", {itemId: item.id})}
+              activeOpacity={0.7}
+            >
+              <Image
+                style={styles.image}
+                source={{ uri: item.image_url }}
+                defaultSource={require("../../assets/food.png")}
+                // source={{
+                //     uri: "https://via.placeholder.com/100",
+                //   }}
+              />
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemRating}>
+                {item.rating} stars {item.review_count} Reviews
+              </Text>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </View>
+  }
+
 const FoodCategory = ({ category, navigation, data,price }) => {
   if (!data || !data.businesses) return null;
   const filteredData = filterByPrice(data.businesses,price)

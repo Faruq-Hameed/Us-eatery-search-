@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Details from "../components/Details";
-import { getAData } from "../components/axios";
+import { getAData } from "../apis/yelp.apis";
 
 const initialState = {
   itemId: null, //
@@ -66,7 +66,7 @@ const ItemScreen = (props) => {
   }
 
   return (
-    <View >
+    <View>
       <Text style={styles.headerContainer}>{state.data.name}</Text>
       <Details photos={state.data.photos} />
     </View>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 20,
     marginTop: 10,
-  }
+  },
 });
 
 export default ItemScreen;
