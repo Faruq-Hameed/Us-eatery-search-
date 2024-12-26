@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { getAllData } from "../components/axios";
 
 const initialState = {
-  search_text: "Nyc", //
+  search_text: "restaurants", //
   data: null,
   loading: false,
   error: null,
