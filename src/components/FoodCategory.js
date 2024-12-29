@@ -9,10 +9,6 @@ import {
 } from "react-native";
 // import { data } from "./data";
 
-const filterByPrice = (businesses, priceLevel) => {
-  return businesses?.filter((business) => business.price === priceLevel) || [];
-};
-
 /**Component to return in flatList renderItem */
 const FlatListRenderComponent = ({ item, styles, navigation }) => {
   return (
@@ -37,9 +33,8 @@ const FlatListRenderComponent = ({ item, styles, navigation }) => {
   );
 };
 
-const FoodCategory = ({ category, navigation, data, price }) => {
+const FoodCategory = ({ category, navigation, data}) => {
   if (!data) return null;
-  const filteredData = filterByPrice(data, price);
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.headerContainer}>{category}</Text>
@@ -47,7 +42,7 @@ const FoodCategory = ({ category, navigation, data, price }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.listContainer}
-        data={filteredData}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (

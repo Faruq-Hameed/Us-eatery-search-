@@ -33,7 +33,9 @@ const SearchScreen = () => {
   const [term, setTerm] = useState("")
   const { data, loading, error, handleSearch } = useApiData();
   /**Function that handles api call(reducer cannot handle async call so this function is used) */
-
+  const filterByPrice = ( price) => {
+    return data?.filter((business) => business.price === price) || [];
+  };
   if (loading) return <Loading />;
 
   if (error) return <Error error={error} />;
@@ -50,26 +52,24 @@ const SearchScreen = () => {
       <FoodCategory
         category="Cost Effective"
         navigation={navigation}
-        data={data}
-        price="$"
+        data={filterByPrice("$")}
       />
       <FoodCategory
         category="Bit Pricer"
         navigation={navigation}
-        price="$$"
-        data={data}
+        data={filterByPrice("$$")}
       />
       <FoodCategory
         category="Big Spender!"
         navigation={navigation}
-        data={data}
-        price="$$$"
+        data={filterByPrice("$$$")}
+
       />
       <FoodCategory
         category="Executive Spender!"
         navigation={navigation}
-        data={data}
-        price="$$$$"
+        data={filterByPrice("$$$")}
+
       />
     </ScrollView>
   );
