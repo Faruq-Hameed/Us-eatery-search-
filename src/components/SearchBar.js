@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, Keyboard, Image, StyleSheet, TouchableOpacity } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
 
 const SearchBar = ({ testState, onAddText, onTextSubmit }) => {
   return (

@@ -38,8 +38,8 @@ const FlatListRenderComponent = ({ item, styles, navigation }) => {
 };
 
 const FoodCategory = ({ category, navigation, data, price }) => {
-  if (!data || !data.businesses) return null;
-  const filteredData = filterByPrice(data.businesses, price);
+  if (!data) return null;
+  const filteredData = filterByPrice(data, price);
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.headerContainer}>{category}</Text>
