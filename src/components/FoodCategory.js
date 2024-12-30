@@ -7,10 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import {useNavigation} from "@react-navigation/native"
 // import { data } from "./data";
 
 /**Component to return in flatList renderItem */
-const FlatListRenderComponent = ({ item, styles, navigation }) => {
+const FlatListRenderComponent = ({ item, styles }) => {
+  const navigation = useNavigation() //directly using navigation
   return (
     <TouchableOpacity
       style={styles.listChild}
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 150,
     marginVertical: 5,
+    borderRadius: 10,
   },
 });
 

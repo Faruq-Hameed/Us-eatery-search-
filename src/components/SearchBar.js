@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   icon: {
    fontSize: 30,
    alignSelf: "center",
-   flex: 0.14
+  marginRight: 10
   },
   textSearch: {
     flex: 1,

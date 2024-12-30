@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Details from "../components/Details";
 import { getAData } from "../apis/yelp.apis";
+import { Loading, Error, NoData } from "../hooks/useApiData";
 
 const initialState = {
   itemId: null, //
@@ -34,41 +35,36 @@ const reducer = (state, action) => {
   }
 };
 // ItemScreen Component
-const ItemScreen = (props) => {
+const ItemScreen = ({route}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const {loading, error, data} = state;
+  const {itemId} = route.params
+  const handleSearch = async (id) => {
+    dispatch({ type: "search_start" });
+    try {
+      const result = await getAData(id); // Simulating API call
+      dispatch({ type: "search_success", payload: result });
+    } catch (error) {
+      dispatch({
+        type: "search_error",
+        payload: error.message || "An error occurred",
+      });
+    }
+  };
   useEffect(() => {
-    const handleSearch = async () => {
-      dispatch({ type: "search_start" });
-      try {
-        const result = await getAData(props.route.params.itemId); // Simulating API call
-        dispatch({ type: "search_success", payload: result });
-      } catch (error) {
-        dispatch({
-          type: "search_error",
-          payload: error.message || "An error occurred",
-        });
-      }
-    };
-    handleSearch();
-  }, [props.route.params.itemId]);
+    handleSearch(itemId);
+  }, []);
 
-  if (state.loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
-
-  if (state.error) {
-    return <Text>Error: {state.error}</Text>;
-  }
-
-  if (!state.data) {
-    return <Text>No data available</Text>;
-  }
+   if (loading) return <Loading />;
+  
+    if (error) return <Error error={error} />;
+  
+    if (!data) return <NoData />;
 
   return (
     <View>
       <Text style={styles.headerContainer}>{state.data.name}</Text>
-      <Details photos={state.data.photos} />
+      <Details photos={data.photos} />
     </View>
   );
 };

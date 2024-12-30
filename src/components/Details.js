@@ -36,6 +36,7 @@ const Details = ({photos}) => {
     <FlatList
       style={styles.listContainer}
       data={photos}
+      keyExtractor={photo => photo}
       renderItem={({ item }) => {
         return (
           <View style={styles.listChild}>
